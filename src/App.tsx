@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
+  const [data,setData] = useState<any>();
+  
+  const getPath = async (name: any) => {
+    const url = await import('./'+name);
+  
+    setData(url.client);
+  }
+
+  useEffect(() => {
+    getPath('const.tsx');
+  }, [])
+ 
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +30,9 @@ function App() {
         >
           Learn React
         </a>
+        {data}
+
+        <button>Clcicar</button>
       </header>
     </div>
   );
